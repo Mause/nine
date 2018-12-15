@@ -1,6 +1,6 @@
 from random import choice, shuffle
 from typing import List, Dict, Set, Tuple
-from collections import defaultdict
+from collections import defaultdict, Counter
 from english_words import english_words_set
 
 nine_words = {
@@ -51,8 +51,13 @@ def square_for_nine(nine: str) -> Tuple[Set[str], List[List[str]]]:
 
 
 def fits(containing: str, contained: str) -> bool:
-    ...
+    containing_c = Counter(containing)
+    contained_c = Counter(contained)
 
+    return all(
+        containing_c[letter] >= count
+        for letter, count in contained_c.items()
+    )
 
 
 def main():
