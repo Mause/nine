@@ -1,5 +1,5 @@
 from random import choice, shuffle
-from typing import List, Dict, Set
+from typing import List, Dict, Set, Tuple
 from collections import defaultdict
 from english_words import english_words_set
 
@@ -22,7 +22,7 @@ def shared_letters_for(words: List[str]) -> Dict[str, Set[str]]:
     return shared
 
 
-def square_for_nine(nine: str) -> List[List[str]]:
+def square_for_nine(nine: str) -> Tuple[Set[str], List[List[str]]]:
     fitting = [
         word
         for word in english_words_set
@@ -41,11 +41,13 @@ def square_for_nine(nine: str) -> List[List[str]]:
     letters.remove(center)
     shuffle(letters)
 
-    return [
+    lines = [
         letters[:3],
         [letters[4], center, letters[5]],
         letters[5:]
     ]
+
+    return answers, lines
 
 
 def fits(containing: str, contained: str) -> bool:
@@ -56,7 +58,9 @@ def fits(containing: str, contained: str) -> bool:
 def main():
     from pprint import pprint
 
-    pprint(square_for_nine(random_nine()))
+    answers, lines = square_for_nine(random_nine())
+
+    pprint(lines)
 
 
 if __name__ == '__main__':
