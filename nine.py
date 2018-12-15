@@ -61,10 +61,13 @@ def fits(containing: str, contained: str) -> bool:
 
 
 def main():
-    __import__('ipdb').set_trace()
     answers, lines = square_for_nine(random_nine())
 
     print('\n'.join(map(''.join, lines)))
+
+    print()
+    for answer in sorted(answers, key=len, reverse=True):
+        print(f' * {answer}')
 
 
 if __name__ == '__main__':
