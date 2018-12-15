@@ -1,4 +1,4 @@
-import random
+from random import choice, shuffle
 from typing import List, Dict, Set
 from collections import defaultdict
 from english_words import english_words_set
@@ -11,7 +11,7 @@ nine_words = {
 
 
 def random_nine() -> str:
-    return random.choice(list(nine_words))
+    return choice(list(nine_words))
 
 
 def shared_letters_for(words: List[str]) -> Dict[str, Set[str]]:
@@ -31,7 +31,7 @@ def square_for_nine(nine: str) -> List[List[str]]:
 
     shared_letters = shared_letters_for(fitting)
 
-    center, answers = random.choice(
+    center, answers = choice(
         list(shared_letters.items())
     )
 
@@ -39,7 +39,7 @@ def square_for_nine(nine: str) -> List[List[str]]:
 
     letters = list(nine)
     letters.remove(center)
-    random.shuffle(letters)
+    shuffle(letters)
 
     return [
         letters[:3],
