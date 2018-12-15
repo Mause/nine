@@ -43,7 +43,7 @@ def square_for_nine(nine: str) -> Tuple[Set[str], List[List[str]]]:
 
     lines = [
         letters[:3],
-        [letters[4], center, letters[5]],
+        [letters[3], center, letters[4]],
         letters[5:]
     ]
 
