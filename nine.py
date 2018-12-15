@@ -26,7 +26,7 @@ def square_for_nine(nine: str) -> Tuple[Set[str], List[List[str]]]:
     fitting = [
         word
         for word in english_words_set
-        if fits(nine, word)
+        if len(word) >= 4 and fits(nine, word)
     ]
 
     shared_letters = shared_letters_for(fitting)
