@@ -3,7 +3,7 @@ from typing import List, Dict, Set, Tuple
 from collections import defaultdict, Counter
 from english_words import english_words_set
 
-nine_words = {
+nine_words: Set[str] = {
     word
     for word in english_words_set
     if len(word) == 9
@@ -61,13 +61,11 @@ def fits(containing: str, contained: str) -> bool:
 
 
 def main():
-    from pprint import pprint
-
+    __import__('ipdb').set_trace()
     answers, lines = square_for_nine(random_nine())
 
-    pprint(lines)
+    print('\n'.join(map(''.join, lines)))
 
 
 if __name__ == '__main__':
     main()
-
