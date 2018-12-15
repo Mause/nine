@@ -18,7 +18,7 @@ def shared_letters_for(words: List[str]) -> Dict[str, Set[str]]:
     shared: Dict[str, Set[str]] = defaultdict(set)
     for word in words:
         for letter in word:
-            shared[letter].add(letter)
+            shared[letter].add(word)
     return shared
 
 
