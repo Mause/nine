@@ -1,4 +1,5 @@
 from uuid import uuid4
+from datetime import datetime, timezone, timedelta
 from random import Random
 from typing import List, Dict, Set, Tuple
 from collections import defaultdict, Counter
@@ -7,6 +8,7 @@ from english_words import english_words_set
 from flask import Flask, request, render_template, url_for, redirect
 
 app = Flask('__name__')
+AWST = timezone(timedelta(seconds=8 * 60 * 60))
 
 nine_words: Set[str] = {
     word
@@ -76,7 +78,8 @@ def index():
     seed = request.args.get('seed')
 
     if not seed:
-        return redirect(url_for('index', seed=uuid4()))
+        today = datetime.now(AWST).date()
+        return redirect(url_for('index', seed=today.isoformat()))
 
     random = Random(seed)
 
