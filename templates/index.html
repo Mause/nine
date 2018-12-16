@@ -8,8 +8,15 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css">
 
 <style type="text/css">
-  footer {
+  footer, main {
     text-align: center;
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  ul > li {
+    list-style-type: none;
   }
   table {
     width: 30px;
@@ -26,6 +33,12 @@
     margin: 0;
   }
 </style>
+
+<script type="text/javascript">
+  function show() {
+    document.getElementById('answers').style.display = '';
+  }
+</script>
 
 <header>
   <h1>Nine</h1>
@@ -50,9 +63,18 @@
       {% endfor %}
     </tbody>
   </table>
+
+  <div id='answers' style="display: none;">
+    <ul>
+      {% for answer in answers %}
+        <li>{{answer}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
 </main>
 
 <footer>
-  <p>{{answers.__len__()}} answers</p>
+  <p><a href="#" onclick="show()">{{answers.__len__()}} answers</a></p>
   <small>Made my Dom</small>
 </footer>
