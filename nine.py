@@ -66,6 +66,11 @@ def fits(containing: str, contained: str) -> bool:
     )
 
 
+@app.route('/random_new')
+def random_new():
+    return redirect(url_for('index', seed=uuid4()))
+
+
 @app.route('/')
 def index():
     seed = request.args.get('seed')
