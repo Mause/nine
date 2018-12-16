@@ -28,7 +28,7 @@ def shared_letters_for(words: List[str]) -> Dict[str, Set[str]]:
 
 
 def square_for_nine(random: Random,
-                    nine: str) -> Tuple[Set[str], List[List[str]]]:
+                    nine: str) -> Tuple[List[str], List[List[str]]]:
     fitting = [
         word
         for word in english_words_set
@@ -53,7 +53,7 @@ def square_for_nine(random: Random,
         letters[5:]
     ]
 
-    return answers, lines
+    return sorted(answers, key=len, reverse=True), lines
 
 
 def fits(containing: str, contained: str) -> bool:
