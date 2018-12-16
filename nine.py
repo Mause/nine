@@ -11,15 +11,15 @@ app = Flask('__name__')
 AWST = timezone(timedelta(seconds=8 * 60 * 60))
 
 english_words_set = set(map(str.lower, english_words_set))
-nine_words: Set[str] = {
+nine_words = sorted(
     word
     for word in english_words_set
     if len(word) == 9
-}
+)
 
 
 def random_nine(random: Random) -> str:
-    return random.choice(list(nine_words))
+    return random.choice(nine_words)
 
 
 def shared_letters_for(words: List[str]) -> Dict[str, Set[str]]:
@@ -41,7 +41,7 @@ def square_for_nine(random: Random,
     shared_letters = shared_letters_for(fitting)
 
     center, answers = random.choice(
-        list(shared_letters.items())
+        sorted(shared_letters.items())
     )
 
     answers.add(nine)
