@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<title>Nine</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="//writ.cmcenroe.me/1.0.4/writ.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css">
+
+<style type="text/css">
+  footer {
+    text-align: center;
+  }
+  table {
+    width: 30px;
+    border: none;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .cell {
+    border: none;
+    font-family: 'Fira Code';
+    font-size: 60px;
+    height: 60px;
+    padding: 0;
+    margin: 0;
+  }
+</style>
+
+<header>
+  <h1>Nine</h1>
+  <nav>
+    <ul>
+      <li><a href="{{url_for('index', seed=seed)}}">Permalink</a></li>
+      <li><a href="{{url_for('index')}}">New</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <br/>
+  <table>
+    <tbody>
+      {% for row in lines %}
+        <tr>
+          {% for cell in row %}
+            <td class="cell">{{cell.upper()}}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</main>
+
+<footer>
+  <p>{{answers.__len__()}} answers</p>
+  <small>Made my Dom</small>
+</footer>

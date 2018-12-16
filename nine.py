@@ -1,7 +1,12 @@
-from random import choice, shuffle
+from uuid import uuid4
+from random import Random
 from typing import List, Dict, Set, Tuple
 from collections import defaultdict, Counter
+
 from english_words import english_words_set
+from flask import Flask, request, render_template, url_for, redirect
+
+app = Flask('__name__')
 
 nine_words: Set[str] = {
     word
@@ -10,8 +15,8 @@ nine_words: Set[str] = {
 }
 
 
-def random_nine() -> str:
-    return choice(list(nine_words))
+def random_nine(random: Random) -> str:
+    return random.choice(list(nine_words))
 
 
 def shared_letters_for(words: List[str]) -> Dict[str, Set[str]]:
@@ -22,7 +27,8 @@ def shared_letters_for(words: List[str]) -> Dict[str, Set[str]]:
     return shared
 
 
-def square_for_nine(nine: str) -> Tuple[Set[str], List[List[str]]]:
+def square_for_nine(random: Random,
+                    nine: str) -> Tuple[Set[str], List[List[str]]]:
     fitting = [
         word
         for word in english_words_set
@@ -31,7 +37,7 @@ def square_for_nine(nine: str) -> Tuple[Set[str], List[List[str]]]:
 
     shared_letters = shared_letters_for(fitting)
 
-    center, answers = choice(
+    center, answers = random.choice(
         list(shared_letters.items())
     )
 
@@ -39,7 +45,7 @@ def square_for_nine(nine: str) -> Tuple[Set[str], List[List[str]]]:
 
     letters = list(nine)
     letters.remove(center)
-    shuffle(letters)
+    random.shuffle(letters)
 
     lines = [
         letters[:3],
@@ -60,15 +66,24 @@ def fits(containing: str, contained: str) -> bool:
     )
 
 
-def main():
-    answers, lines = square_for_nine(random_nine())
+@app.route('/')
+def index():
+    seed = request.args.get('seed')
 
-    print('\n'.join(map(''.join, lines)))
+    if not seed:
+        return redirect(url_for('index', seed=uuid4()))
 
-    print()
-    for answer in sorted(answers, key=len, reverse=True):
-        print(f' * {answer}')
+    random = Random(seed)
+
+    answers, lines = square_for_nine(random, random_nine(random))
+
+    return render_template(
+        'index.html',
+        answers=answers,
+        lines=lines,
+        seed=seed
+    )
 
 
 if __name__ == '__main__':
-    main()
+    app.run(debug=True)
