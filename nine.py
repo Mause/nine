@@ -10,6 +10,7 @@ from flask import Flask, request, render_template, url_for, redirect
 app = Flask('__name__')
 AWST = timezone(timedelta(seconds=8 * 60 * 60))
 
+english_words_set = set(map(str.lower, english_words_set))
 nine_words: Set[str] = {
     word
     for word in english_words_set
